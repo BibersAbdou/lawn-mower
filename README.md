@@ -12,5 +12,5 @@ java -jar lawn-mower-console/target/lawn-mower-console-1.0-SNAPSHOT.jar text.txt
 Where text.txt is test file path
 
 ## Running on UI:
-just run #start.sh
+just run start.sh
 click load for chosing file. then press play for displaying instructions
