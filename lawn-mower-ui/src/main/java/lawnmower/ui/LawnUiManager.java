@@ -43,7 +43,7 @@ public class LawnUiManager {
 
 
   public static final int WINDOW_WIDTH = 1024;
-  public static final int WINDOW_HEIGHT = 740;
+  public static final int WINDOW_HEIGHT = 800;
   private static final int GROW_SIZE = 70;
   private static final ImageIcon GROWN_ICON = new ImageIcon(
       ClassLoader.getSystemResource("grass.PNG"));
@@ -113,10 +113,10 @@ public class LawnUiManager {
     d = (0.1 * WINDOW_HEIGHT);
     controlPanel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
 
-    d = (0.25 * WINDOW_HEIGHT);
+    d = (0.4 * WINDOW_HEIGHT);
 
     InfoPanel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
-    d = (0.4 * WINDOW_HEIGHT);
+    d = (0.5 * WINDOW_HEIGHT);
     InfoPanelScroll.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
 
     content.setVisible(false);

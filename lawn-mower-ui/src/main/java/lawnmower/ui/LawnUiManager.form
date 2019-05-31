@@ -32,7 +32,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="87fb9" binding="fieldContainer" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+          <grid id="87fb9" binding="fieldContainer" layout-manager="FlowLayout" hgap="1" vgap="1" flow-align="1">
             <constraints/>
             <properties>
               <background color="-1"/>
