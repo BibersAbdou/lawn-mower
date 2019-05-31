@@ -14,13 +14,6 @@
     <artifactId>lawn-mower-ui</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.francetech</groupId>
-            <artifactId>lawn-mower-console</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 
 
     <build>
