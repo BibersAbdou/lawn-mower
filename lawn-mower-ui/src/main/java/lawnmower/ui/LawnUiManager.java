@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -91,46 +92,14 @@ public class LawnUiManager {
   private List<String> result;
 
   public LawnUiManager() {
-
-    intiComponents();
-
-
-
-    InfoPanel.setLayout(new BoxLayout(InfoPanel, BoxLayout.Y_AXIS));
-    InfoPanelScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-    InfoPanelScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
-    controlPanel.setSize(new Dimension(WINDOW_WIDTH, 20));
-
-
-    play.setContentAreaFilled( false);
-
-
-    fieldContainer.setVisible(false);
-
-    Double d = (0.1 * WINDOW_HEIGHT);
-    titleHeader.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
-     d = (0.4 * WINDOW_HEIGHT);
-    fieldContainer.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
-    d = (0.1 * WINDOW_HEIGHT);
-    warnLabel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
-    warnLabel.setHorizontalAlignment( SwingConstants.LEFT);
-    d = (0.1 * WINDOW_HEIGHT);
-    controlPanel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
-
-    d = (0.4 * WINDOW_HEIGHT);
-
-    InfoPanel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
-    d = (0.5 * WINDOW_HEIGHT);
-    InfoPanelScroll.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
-
-    content.setVisible(false);
-    content.setVisible(true);
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     } catch (Exception e) {
       e.printStackTrace();
     }
+    intiComponents();
+
+
     load.addActionListener(e -> {
 
       JFileChooser j = new JFileChooser();
@@ -154,16 +123,116 @@ public class LawnUiManager {
   }
 
   private void intiComponents() {
-    private JPanel fieldPanel;
-    private JPanel content;
-    private JPanel fieldContainer;
-    private JPanel InfoPanel;
-    private JLabel warnLabel;
-    private JPanel controlPanel;
-    private JButton play;
-    private JButton load;
-    private JLabel titleHeader;
-    private JScrollPane InfoPanelScroll;
+
+    Color background = new Color(236, 236, 236);
+    content =new JPanel();
+    content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+
+    content.setBackground(background);
+    content.setVisible(false);
+    titleHeader = new JLabel("Law mower");
+
+    titleHeader.setHorizontalTextPosition( SwingConstants.CENTER);
+    titleHeader.setHorizontalAlignment( SwingConstants.CENTER);
+    titleHeader.setFont(new Font(Font.SERIF, Font.BOLD,  20));
+    content.add(titleHeader);
+
+    controlPanel = new JPanel();
+    controlPanel.setBackground(background);
+    controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
+    play = new JButton("play");
+    play.setHorizontalAlignment(SwingConstants.LEFT);
+    play.setContentAreaFilled( false);
+    controlPanel.add(play);
+
+    load = new JButton("load");
+    load.setContentAreaFilled( false);
+    load.setHorizontalAlignment(SwingConstants.LEFT);
+    controlPanel.add(load);
+    controlPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+    content.add(controlPanel);
+
+
+    fieldContainer = new JPanel();
+    fieldContainer.setLayout(new BoxLayout(fieldContainer, BoxLayout.Y_AXIS));
+
+
+
+    fieldPanel = new JPanel();
+    fieldPanel.setBackground(background);
+    fieldContainer.add(fieldPanel);
+
+
+
+    Double h = (0.4 * WINDOW_HEIGHT);
+
+    fieldPanel.setSize(new Dimension(WINDOW_WIDTH,h.intValue() ));
+    fieldPanel.setMinimumSize(new Dimension(WINDOW_WIDTH,h.intValue() ));
+
+    fieldContainer.setSize(new Dimension(WINDOW_WIDTH,h.intValue() ));
+    fieldContainer.setMinimumSize(new Dimension(WINDOW_WIDTH,h.intValue() ));
+
+    JScrollPane jScrollPane = new JScrollPane(fieldContainer);
+    jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+    jScrollPane.setBackground(background);
+
+
+    jScrollPane.setSize(new Dimension(WINDOW_WIDTH,h.intValue() ));
+    jScrollPane.setMaximumSize(new Dimension(WINDOW_WIDTH,h.intValue() ));
+    jScrollPane.setMinimumSize(new Dimension(WINDOW_WIDTH,h.intValue() ));
+
+
+    content.add(jScrollPane);
+
+
+    warnLabel = new JLabel("");
+
+    warnLabel.setHorizontalTextPosition( SwingConstants.LEFT);
+    warnLabel.setHorizontalAlignment( SwingConstants.LEFT);
+    warnLabel.setFont(new Font(Font.SERIF, Font.BOLD,  20));
+    warnLabel.setForeground(Color.RED);
+    content.add(warnLabel);
+
+
+
+
+
+    InfoPanel = new JPanel();
+    InfoPanel.setLayout(new BoxLayout(InfoPanel, BoxLayout.Y_AXIS));
+    InfoPanel.setBackground(background);
+
+
+    InfoPanelScroll = new JScrollPane(InfoPanel);
+    InfoPanelScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    InfoPanelScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+    InfoPanelScroll.setBackground(background);
+
+    content.add(InfoPanelScroll);
+
+
+    content.setSize(new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
+
+    Double d = (0.1 * WINDOW_HEIGHT);
+    titleHeader.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+
+
+
+    d = (0.1 * WINDOW_HEIGHT);
+    warnLabel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+
+    d = (0.1 * WINDOW_HEIGHT);
+    controlPanel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+
+    d = (0.2 * WINDOW_HEIGHT);
+    InfoPanelScroll.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+
+    d = (0.4 * WINDOW_HEIGHT);
+
+    InfoPanel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+
+
+    SwingUtilities.invokeLater(() ->  content.setVisible(true));
 
   }
 
@@ -229,12 +298,8 @@ public class LawnUiManager {
       {
         Result dialog = new Result(result);
 
-
-
-
         dialog.pack();
         dialog.setVisible(true);
-        System.exit(0);
       }
       System.out.println("result : ");
       for (String s : result) {
@@ -279,6 +344,8 @@ public class LawnUiManager {
 
 
       info = new MowerInfo(mower);
+
+
       InfoPanel.add(info);
       InfoPanel.setVisible(false);
       InfoPanel.setVisible(true);
@@ -367,6 +434,7 @@ public class LawnUiManager {
   }
 
   private void addAxisLabl(String s, int hPos, int vPos) {
+
     JLabel label = new JLabel(s);
     label.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
     label.setPreferredSize(new Dimension(GROW_SIZE, GROW_SIZE));

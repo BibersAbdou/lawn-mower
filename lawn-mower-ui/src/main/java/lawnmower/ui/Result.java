@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -17,6 +18,17 @@ public class Result extends JDialog {
   private JTextArea textResult;
 
   public Result(List<String> result) {
+
+    contentPane =new JPanel();
+    buttonOK =new JButton("Ok");
+    textResult = new JTextArea();
+    textResult.setSize(new Dimension(100,150));
+
+    contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+    contentPane.add(textResult);
+    contentPane.add(buttonOK);
+
+
     setContentPane(contentPane);
     setModal(true);
     getRootPane().setDefaultButton(buttonOK);
