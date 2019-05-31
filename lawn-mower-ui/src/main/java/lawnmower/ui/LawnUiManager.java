@@ -91,6 +91,11 @@ public class LawnUiManager {
   private List<String> result;
 
   public LawnUiManager() {
+
+    intiComponents();
+
+
+
     InfoPanel.setLayout(new BoxLayout(InfoPanel, BoxLayout.Y_AXIS));
     InfoPanelScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
     InfoPanelScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -146,6 +151,20 @@ public class LawnUiManager {
       active = true;
       play();
     });
+  }
+
+  private void intiComponents() {
+    private JPanel fieldPanel;
+    private JPanel content;
+    private JPanel fieldContainer;
+    private JPanel InfoPanel;
+    private JLabel warnLabel;
+    private JPanel controlPanel;
+    private JButton play;
+    private JButton load;
+    private JLabel titleHeader;
+    private JScrollPane InfoPanelScroll;
+
   }
 
 
