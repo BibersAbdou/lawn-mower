@@ -1,5 +1,7 @@
 package lawnmower.ui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -7,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 
 public class Result extends JDialog {
 
@@ -20,11 +21,10 @@ public class Result extends JDialog {
     setModal(true);
     getRootPane().setDefaultButton(buttonOK);
 
-    buttonOK.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        onOK();
-      }
-    });
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
+    buttonOK.addActionListener(e -> onOK());
 
     textResult.append("result : \n");
     for (String r: result)

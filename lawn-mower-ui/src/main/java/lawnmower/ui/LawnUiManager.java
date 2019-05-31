@@ -209,6 +209,10 @@ public class LawnUiManager {
       if(active)
       {
         Result dialog = new Result(result);
+
+
+
+
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
