@@ -1,6 +1,7 @@
 package lawnmower.ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -47,7 +49,7 @@ public class LawnUiManager {
       ClassLoader.getSystemResource("grass.PNG"));
   private static final ImageIcon GROWN_HARVESTED_ICON = new ImageIcon(
       ClassLoader.getSystemResource("harvested.PNG"));
-  private static final long SPEED = 1000;
+  private static final long SPEED = 700;
   private static Image MOWER_ICON;
 
 
@@ -68,7 +70,7 @@ public class LawnUiManager {
   private Map<Coordinate, GrownLabel> grows = new HashMap<>();
   private boolean active = false;
   private Map<Mower, GrownLabel> affectation = new HashMap<>();
-  private Map<Mower, MowerInfo> mowerInfo = new HashMap<>();
+  private Map<Mower, MowerInfo> mowerInfo = new LinkedHashMap<>();
   private JPanel fieldPanel;
   private JPanel content;
   private JPanel fieldContainer;
@@ -79,6 +81,7 @@ public class LawnUiManager {
   private JButton load;
   private JLabel titleHeader;
   private JScrollPane InfoPanelScroll;
+
 
 
   private Field field;
@@ -126,7 +129,7 @@ public class LawnUiManager {
     load.addActionListener(e -> {
 
       JFileChooser j = new JFileChooser();
-      int r = j.showSaveDialog(null);
+      int r = j.showOpenDialog(null);
 
       // if the user selects a file
       if (r == JFileChooser.APPROVE_OPTION) {
@@ -203,6 +206,13 @@ public class LawnUiManager {
         }
       }
 
+      if(active)
+      {
+        Result dialog = new Result(result);
+        dialog.pack();
+        dialog.setVisible(true);
+        System.exit(0);
+      }
       System.out.println("result : ");
       for (String s : result) {
         System.out.println(s);
@@ -243,12 +253,20 @@ public class LawnUiManager {
     MowerInfo info = mowerInfo.get(mower);
 
     if (info == null) {
-      info = new MowerInfo(mower);
 
+
+      info = new MowerInfo(mower);
       InfoPanel.add(info);
       InfoPanel.setVisible(false);
       InfoPanel.setVisible(true);
       mowerInfo.put(mower, info);
+
+      Component[] list = InfoPanel.getComponents();
+      InfoPanel.removeAll();
+      for (int i= list.length-1 ; i>=0; i--)
+      {
+        InfoPanel.add(list[i]);
+      }
     }
 
 
