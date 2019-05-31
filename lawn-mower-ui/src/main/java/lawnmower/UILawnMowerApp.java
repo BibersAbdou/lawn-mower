@@ -19,6 +19,7 @@ public class UILawnMowerApp {
     jFrame.setContentPane(field.getContent());
     jFrame.setPreferredSize(new Dimension(LawnUiManager.WINDOW_WIDTH, LawnUiManager.WINDOW_HEIGHT));
     jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    jFrame.setResizable(false);
     jFrame.pack();
     jFrame.setVisible(true);
   }

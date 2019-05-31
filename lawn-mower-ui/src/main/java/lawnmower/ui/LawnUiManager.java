@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -75,9 +76,10 @@ public class LawnUiManager {
   private JLabel warnLabel;
   private JPanel controlPanel;
   private JButton play;
-  private JButton pause;
-  private JButton skip;
   private JButton load;
+  private JLabel titleHeader;
+  private JScrollPane InfoPanelScroll;
+
 
   private Field field;
   private ScenarioFileReader scenario;
@@ -87,9 +89,35 @@ public class LawnUiManager {
 
   public LawnUiManager() {
     InfoPanel.setLayout(new BoxLayout(InfoPanel, BoxLayout.Y_AXIS));
+    InfoPanelScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+    InfoPanelScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
     controlPanel.setSize(new Dimension(WINDOW_WIDTH, 20));
+
+
+    play.setContentAreaFilled( false);
+
+
     fieldContainer.setVisible(false);
+
+    Double d = (0.1 * WINDOW_HEIGHT);
+    titleHeader.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+     d = (0.4 * WINDOW_HEIGHT);
+    fieldContainer.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+    d = (0.1 * WINDOW_HEIGHT);
+    warnLabel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+    warnLabel.setHorizontalAlignment( SwingConstants.LEFT);
+    d = (0.1 * WINDOW_HEIGHT);
+    controlPanel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+
+    d = (0.25 * WINDOW_HEIGHT);
+
+    InfoPanel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+    d = (0.4 * WINDOW_HEIGHT);
+    InfoPanelScroll.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+
+    content.setVisible(false);
+    content.setVisible(true);
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     } catch (Exception e) {
@@ -155,8 +183,12 @@ public class LawnUiManager {
             if (c != null) {
               SwingUtilities.invokeLater(() -> displayMove(mower, c.name()));
               Thread.sleep(SPEED);
-              mowerController.move(mower, c);
-              SwingUtilities.invokeLater(() -> moveMower(mower));
+              if(active)
+              {
+                mowerController.move(mower, c);
+                SwingUtilities.invokeLater(() -> moveMower(mower));
+              }
+
 
             }
           }
@@ -249,14 +281,9 @@ public class LawnUiManager {
 
   private void clear() {
 
-    grows.values().forEach(g -> {
-      fieldPanel.remove(g);
-    });
 
-    mowerInfo.values().forEach(i ->
-    {
-      InfoPanel.remove(i);
-    });
+    fieldPanel.removeAll();
+    InfoPanel.removeAll();
     grows = new HashMap<>();
     affectation = new HashMap<>();
     mowerInfo = new HashMap<>();
@@ -294,7 +321,7 @@ public class LawnUiManager {
       addAxisLabl("" + i, SwingConstants.CENTER, SwingConstants.CENTER);
 
     }
-
+    addAxisLabl("" , SwingConstants.CENTER, SwingConstants.CENTER);
 
   }
 
@@ -320,13 +347,13 @@ public class LawnUiManager {
   }
 
 
-  public JPanel getFieldContainer() {
-    return fieldContainer;
-  }
+
 
   public void warn(String format) {
     this.warnLabel.setText(format);
   }
+
+
 
 
   class GrownLabel extends JLabel {
