@@ -2,7 +2,17 @@ package lawnmower;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.KeyStroke;
 import lawnmower.ui.LawnUiManager;
 
 public class UILawnMowerApp {
@@ -28,6 +38,10 @@ public class UILawnMowerApp {
 
     jFrame.setResizable(false);
     jFrame.pack();
+
+    jFrame.setJMenuBar(field.getMenu());
+
+
     jFrame.setVisible(true);
   }
 

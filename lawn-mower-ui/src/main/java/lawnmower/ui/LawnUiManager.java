@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Label;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +26,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -77,12 +80,13 @@ public class LawnUiManager {
   private JPanel fieldContainer;
   private JPanel InfoPanel;
   private JLabel warnLabel;
-  private JPanel controlPanel;
+
   private JButton play;
   private JButton load;
   private JLabel titleHeader;
   private JScrollPane InfoPanelScroll;
-
+  //Where the GUI is created:
+  JMenuBar menuBar;
 
 
   private Field field;
@@ -97,32 +101,57 @@ public class LawnUiManager {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    intiComponents();
+    initComponents();
+    initMenu();
 
 
+  }
+
+  private void load() {
+    JFileChooser j = new JFileChooser();
+    int r = j.showOpenDialog(null);
+
+    // if the user selects a file
+    if (r == JFileChooser.APPROVE_OPTION) {
+      String file = j.getSelectedFile().getAbsolutePath();
+
+      adapt(file);
+
+
+    }
+
+  }
+
+  private void initMenu() {
+
+//Create the menu bar.
+    menuBar = new JMenuBar();
+
+    load = new JButton("open");
+    load.setContentAreaFilled(false);
+    load.setHorizontalAlignment(SwingConstants.LEFT);
+
+    menuBar.add(load);
     load.addActionListener(e -> {
-
-      JFileChooser j = new JFileChooser();
-      int r = j.showOpenDialog(null);
-
-      // if the user selects a file
-      if (r == JFileChooser.APPROVE_OPTION) {
-        String file = j.getSelectedFile().getAbsolutePath();
-
-        adapt(file);
-
-
-      }
+      System.out.println("open");
+      load();
 
     });
+
+    play = new JButton("play");
+    play.setHorizontalAlignment(SwingConstants.LEFT);
+    play.setContentAreaFilled(false);
+    menuBar.add(play);
+
     play.addActionListener(e -> {
 
       active = true;
       play();
+
     });
   }
 
-  private void intiComponents() {
+  private void initComponents() {
 
     Color background = new Color(236, 236, 236);
     content =new JPanel();
@@ -137,20 +166,6 @@ public class LawnUiManager {
     titleHeader.setFont(new Font(Font.SERIF, Font.BOLD,  20));
     content.add(titleHeader);
 
-    controlPanel = new JPanel();
-    controlPanel.setBackground(background);
-    controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
-    play = new JButton("play");
-    play.setHorizontalAlignment(SwingConstants.LEFT);
-    play.setContentAreaFilled( false);
-    controlPanel.add(play);
-
-    load = new JButton("load");
-    load.setContentAreaFilled( false);
-    load.setHorizontalAlignment(SwingConstants.LEFT);
-    controlPanel.add(load);
-    controlPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-    content.add(controlPanel);
 
 
     fieldContainer = new JPanel();
@@ -221,8 +236,6 @@ public class LawnUiManager {
     d = (0.1 * WINDOW_HEIGHT);
     warnLabel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
 
-    d = (0.1 * WINDOW_HEIGHT);
-    controlPanel.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
 
     d = (0.2 * WINDOW_HEIGHT);
     InfoPanelScroll.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
@@ -462,7 +475,9 @@ public class LawnUiManager {
     this.warnLabel.setText(format);
   }
 
-
+  public JMenuBar getMenu() {
+    return this.menuBar;
+  }
 
 
   class GrownLabel extends JLabel {
