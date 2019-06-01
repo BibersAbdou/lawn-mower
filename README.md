@@ -13,4 +13,4 @@ Where text.txt is test file path
 
 ## Running on UI:
 just run start.sh
-click load for chosing file. then press play for displaying instructions
+click open for chosing file. then press play for displaying instructions
