@@ -7,9 +7,10 @@ mvn clean install
 
 ## Running on console:
 
-java -jar .jar text.txt
+java -jar lawn-mower-console/target/lawn-mower-console-1.0-SNAPSHOT.jar test.txt
 
 Where text.txt is test file path
 
 ## Running on UI:
-
+just run start.sh
+click load for chosing file. then press play for displaying instructions
