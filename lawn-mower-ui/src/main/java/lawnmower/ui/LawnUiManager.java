@@ -9,7 +9,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Label;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +25,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -81,12 +79,8 @@ public class LawnUiManager {
   private JPanel InfoPanel;
   private JLabel warnLabel;
 
-  private JButton play;
-  private JButton load;
-  private JLabel titleHeader;
-  private JScrollPane InfoPanelScroll;
   //Where the GUI is created:
-  JMenuBar menuBar;
+  private JMenuBar menuBar;
 
 
   private Field field;
@@ -127,7 +121,7 @@ public class LawnUiManager {
 //Create the menu bar.
     menuBar = new JMenuBar();
 
-    load = new JButton("open");
+    JButton load = new JButton("open");
     load.setContentAreaFilled(false);
     load.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -138,7 +132,7 @@ public class LawnUiManager {
 
     });
 
-    play = new JButton("play");
+    JButton play = new JButton("play");
     play.setHorizontalAlignment(SwingConstants.LEFT);
     play.setContentAreaFilled(false);
     menuBar.add(play);
@@ -159,7 +153,7 @@ public class LawnUiManager {
 
     content.setBackground(background);
     content.setVisible(false);
-    titleHeader = new JLabel("Law mower");
+    JLabel titleHeader = new JLabel("Law mower");
 
     titleHeader.setHorizontalTextPosition( SwingConstants.CENTER);
     titleHeader.setHorizontalAlignment( SwingConstants.CENTER);
@@ -217,13 +211,12 @@ public class LawnUiManager {
     InfoPanel.setLayout(new BoxLayout(InfoPanel, BoxLayout.Y_AXIS));
     InfoPanel.setBackground(background);
 
+    JScrollPane infoPanelScroll = new JScrollPane(InfoPanel);
+    infoPanelScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    infoPanelScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+    infoPanelScroll.setBackground(background);
 
-    InfoPanelScroll = new JScrollPane(InfoPanel);
-    InfoPanelScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    InfoPanelScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-    InfoPanelScroll.setBackground(background);
-
-    content.add(InfoPanelScroll);
+    content.add(infoPanelScroll);
 
 
     content.setSize(new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
@@ -238,7 +231,7 @@ public class LawnUiManager {
 
 
     d = (0.2 * WINDOW_HEIGHT);
-    InfoPanelScroll.setSize(new Dimension(WINDOW_WIDTH,d.intValue() ));
+    infoPanelScroll.setSize(new Dimension(WINDOW_WIDTH, d.intValue()));
 
     d = (0.4 * WINDOW_HEIGHT);
 
@@ -282,7 +275,7 @@ public class LawnUiManager {
 
           while (active && it.hasNext()) {
 
-            SwingUtilities.invokeLater(() -> warn(""));
+
             Command c = it.next();
             if (c != null) {
               SwingUtilities.invokeLater(() -> displayMove(mower, c.name()));
@@ -299,7 +292,7 @@ public class LawnUiManager {
 
           result.add(mower.toString());
           mowerCommand = scenario.nextMowerCommand();
-
+          SwingUtilities.invokeLater(() -> warn(""));
         } catch (Exception ex) {
 
           SwingUtilities.invokeLater(() -> warn(ex.getMessage()));
